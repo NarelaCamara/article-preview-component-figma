@@ -16,14 +16,14 @@ export const Card = ({
   date: string;
 }) => {
   return (
-    <div className="sm:max-w-[327px] md:max-w-[608px]  lg:max-w-[730px]   flex flex-col md:flex-row bg-white rounded-xl ">
+    <div className="max-md:max-w-[327px] md:max-w-[608px]  lg:max-w-[730px]   flex flex-col md:flex-row bg-white rounded-xl ">
       <img
         src={cover}
-        className="rounded-t-xl md:min-w-[229px] md:max-w-[283px]"
+        className=" md:rounded-tl-xl md:rounded-bl-xl md:min-w-[229px] md:max-w-[283px] max-md:rounded-t-xl "
         alt="cover"
       />
-      <div className="flex flex-col">
-        <div className="p-8 bg-white">
+      <div className="flex flex-col ">
+        <div className="p-8 bg-white rounded-xl">
           <h1 className="text-xl text-[#48556A] pb-6 font-[Manrope]">
             {title}
           </h1>
