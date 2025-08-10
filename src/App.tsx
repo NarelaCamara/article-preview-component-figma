@@ -5,7 +5,7 @@ import user from "./assets/avatar-michelle.jpg";
 
 function App() {
   return (
-    <>
+    <div className="flex items-center justify-center min-h-screen">
       <Card
         cover={cover}
         title={
@@ -18,7 +18,7 @@ function App() {
         name={"Michelle Appleton"}
         date={"28 Jun 2020"}
       />
-    </>
+    </div>
   );
 }
 
