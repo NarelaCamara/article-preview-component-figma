@@ -15,45 +15,51 @@ export const Profile = ({
   const [share, setShare] = useState(false);
   return (
     <div
-      className={`${
-        share ? "bg-[#48556A]" : "bg-white "
+      className={` ${
+        share ? " max-md:bg-[#48556A]" : " bg-white "
       }  pt-4 px-8 pb-4 rounded-b-xl h-20`}
     >
       <div className="grid grid-cols-5 grid-rows-1 gap-2 place-items-center md:place-items-start">
-        {!share && (
-          <>
-            <div>
-              <img
-                src={profileImage}
-                className="rounded-full w-12 "
-                alt="user profile"
-              />
-            </div>
+        <>
+          <div className={`${!share ? " block" : " max-md:hidden "}`}>
+            <img
+              src={profileImage}
+              className="rounded-full w-12 "
+              alt="user profile"
+            />
+          </div>
 
-            <div className="col-span-3 ">
-              <h4 className="text-sm text-[#48556A] font-[Manrope]">{name}</h4>
-              <p className="text-xs text-[#9DAEC2] font-[Manrope]">{date}</p>
-            </div>
-          </>
-        )}
+          <div
+            className={`col-span-3 ${!share ? " block" : " max-md:hidden "}`}
+          >
+            <h4 className="text-sm text-[#48556A] font-[Manrope]">{name}</h4>
+            <p className="text-xs text-[#9DAEC2] font-[Manrope]">{date}</p>
+          </div>
+        </>
 
-        {share && (
-          <>
-            <h4 className="text-[#9DAEC2] text-sm font-[Manrope]">SHARE</h4>
+        <>
+          <h4
+            className={`hidden ${
+              share ? " max-md:block" : "  "
+            } text-[#9DAEC2] text-sm font-[Manrope]`}
+          >
+            SHARE
+          </h4>
 
-            <div className="col-span-3">
-              <button className="rounded-full ml-4  h-8">
-                <img src={facebook} className="w-5 h-5" alt="facebook" />
-              </button>
-              <button className="rounded-full ml-4  h-8">
-                <img src={twitter} className="w-5 h-5" alt="twiter" />
-              </button>
-              <button className="rounded-full ml-4  h-8">
-                <img src={pinterest} className="w-5 h-5" alt="pinterest" />
-              </button>
-            </div>
-          </>
-        )}
+          <div
+            className={`col-span-3 hidden  ${share ? " max-md:block" : " "}`}
+          >
+            <button className="rounded-full ml-4  h-8">
+              <img src={facebook} className="w-5 h-5" alt="facebook" />
+            </button>
+            <button className="rounded-full ml-4  h-8">
+              <img src={twitter} className="w-5 h-5" alt="twiter" />
+            </button>
+            <button className="rounded-full ml-4  h-8">
+              <img src={pinterest} className="w-5 h-5" alt="pinterest" />
+            </button>
+          </div>
+        </>
 
         <div className="col-start-5">
           <button
