@@ -19,7 +19,7 @@ export const Profile = ({
         share ? "bg-[#48556A]" : "bg-white "
       }  pt-4 px-8 pb-4 rounded-b-xl h-20`}
     >
-      <div className="grid grid-cols-5 grid-rows-1 gap-2 place-items-center">
+      <div className="grid grid-cols-5 grid-rows-1 gap-2 place-items-center md:place-items-start">
         {!share && (
           <>
             <div>
@@ -30,7 +30,7 @@ export const Profile = ({
               />
             </div>
 
-            <div className="col-span-3">
+            <div className="col-span-3 ">
               <h4 className="text-sm text-[#48556A] font-[Manrope]">{name}</h4>
               <p className="text-xs text-[#9DAEC2] font-[Manrope]">{date}</p>
             </div>

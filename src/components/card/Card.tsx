@@ -16,14 +16,22 @@ export const Card = ({
   date: string;
 }) => {
   return (
-    <div className="w-[327px] flex flex-col bg-white rounded-xl ">
-      <img src={cover} className="rounded-t-xl" alt="cover" />
-      <div className="p-8">
-        <h1 className="text-xl text-[#48556A] pb-6 font-[Manrope]">{title}</h1>
-        <p className="text-[#6E8098] text-sm font-[Manrope]">{description}</p>
-      </div>
+    <div className="sm:max-w-[327px] md:max-w-[608px]  lg:max-w-[730px]   flex flex-col md:flex-row bg-white rounded-xl ">
+      <img
+        src={cover}
+        className="rounded-t-xl md:min-w-[229px] md:max-w-[283px]"
+        alt="cover"
+      />
+      <div className="flex flex-col">
+        <div className="p-8 bg-white">
+          <h1 className="text-xl text-[#48556A] pb-6 font-[Manrope]">
+            {title}
+          </h1>
+          <p className="text-[#6E8098] text-sm font-[Manrope]">{description}</p>
+        </div>
 
-      <Profile profileImage={profileImage} name={name} date={date} />
+        <Profile profileImage={profileImage} name={name} date={date} />
+      </div>
     </div>
   );
 };
