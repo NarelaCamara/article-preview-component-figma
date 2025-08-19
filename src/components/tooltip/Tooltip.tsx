@@ -1,10 +1,25 @@
+import { useGSAP } from "@gsap/react";
 import facebook from "../../assets/icon-facebook.svg";
 import pinterest from "../../assets/icon-pinterest.svg";
 import twitter from "../../assets/icon-twitter.svg";
+import { useRef } from "react";
+import gsap from "gsap";
 
 export const Tooltip = ({ share }: { share: boolean }) => {
+  const tooltip = useRef(null);
+
+  useGSAP(() => {
+    gsap.from(tooltip.current, {
+      opacity: 1,
+      y: -20,
+      duration: 1,
+      stagger: 0.3,
+      ease: "power3.out",
+    });
+  }, [share]);
+
   return (
-    <div className={`hidden ${share ? " md:block " : "  "}`}>
+    <div ref={tooltip} className={`hidden ${share ? " md:block " : "  "}`}>
       <div
         className={`px-[38px] py-[16px]  bg-[#48556A] rounded-xl min-w-[248px]`}
       >
