@@ -6,7 +6,6 @@ import { useRef } from "react";
 import gsap from "gsap";
 
 export const Tooltip = ({ share }: { share: boolean }) => {
-  console.log("share", share);
   const tooltip = useRef(null);
 
   useGSAP(() => {
