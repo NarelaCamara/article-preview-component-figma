@@ -18,8 +18,49 @@ export const Profile = ({
   const cardContentRef = useRef<HTMLDivElement>(null);
   const [share, setShare] = useState(false);
   const container = useRef(null);
-
   const mm = gsap.matchMedia();
+
+  mm.add(
+    {
+      isMobile: "(max-width: 768px)",
+      isDesktop: "(min-width: 769px)",
+    },
+    (context) => {
+      const { isMobile } = context.conditions || {};
+
+      const q = gsap.utils.selector(container);
+      const profileShow = q('[data-id="profile"]');
+      const shareShow = q('[data-id="share"]');
+
+      if (isMobile) {
+        gsap.to(shareShow, {
+          opacity: share ? 1 : 0,
+          duration: 0.2,
+          ease: share ? "power3.out" : "power2.in",
+          position: "relative",
+          top: -24,
+        });
+
+        gsap.to(profileShow, {
+          opacity: share ? 0 : 1,
+          duration: 0.2,
+          ease: share ? "power2.in" : "power3.out",
+        });
+
+        gsap.to(cardContentRef.current, {
+          backgroundColor: share ? "#48556A" : "#fff",
+          duration: 0.2,
+        });
+      } else {
+        {
+          // Reseteamos todo en desktop
+          gsap.set(profileShow, { clearProps: "all" });
+          gsap.set(shareShow, { clearProps: "all" });
+          gsap.set(cardContentRef.current, { clearProps: "all" });
+        }
+      }
+    }
+  );
 
   useGSAP(() => {
     if (cardContentRef.current) {
@@ -27,62 +68,10 @@ export const Profile = ({
         opacity: 0,
         y: -200,
         duration: 1,
-
         ease: "power3.out",
       });
     }
   }, []);
-
-  useGSAP(() => {
-    const q = gsap.utils.selector(container);
-    const profileShow = q('[data-id="profile"]');
-    const shareShow = q('[data-id="share"]');
-
-    /* 640px */
-    mm.add("(max-width: 768px)", () => {
-      if (share) {
-        gsap.to(shareShow, {
-          opacity: 1,
-          display: "block",
-          duration: 0.4,
-
-          ease: "power3.out",
-        });
-
-        gsap.to(profileShow, {
-          opacity: 0,
-          display: "none",
-          duration: 0.2,
-          ease: "power2.in",
-        });
-
-        gsap.to(cardContentRef.current, {
-          backgroundColor: "#48556A",
-          duration: 0.4,
-        });
-      } else {
-        gsap.to(profileShow, {
-          opacity: 1,
-          display: "block",
-          duration: 0.4,
-
-          ease: "power3.out",
-        });
-
-        gsap.to(shareShow, {
-          opacity: 0,
-          display: "none",
-          duration: 0.2,
-          ease: "power2.in",
-        });
-
-        gsap.to(cardContentRef.current, {
-          backgroundColor: "#fff",
-          duration: 0.4,
-        });
-      }
-    });
-  }, [share]);
 
   return (
     <>
