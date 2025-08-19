@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import facebook from "../../assets/icon-facebook.svg";
 import pinterest from "../../assets/icon-pinterest.svg";
 import twitter from "../../assets/icon-twitter.svg";
 import { Tooltip } from "../tooltip/Tooltip";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 export const Profile = ({
   profileImage,
@@ -13,10 +15,26 @@ export const Profile = ({
   name: string;
   date: string;
 }) => {
+  const cardContentRef = useRef<HTMLDivElement>(null);
   const [share, setShare] = useState(false);
+
+  useGSAP(() => {
+    if (cardContentRef.current) {
+      gsap.from(cardContentRef.current.children, {
+        opacity: 0,
+        y: -200,
+        duration: 1,
+        stagger: 0.3,
+        ease: "power3.out",
+      });
+    }
+  }, []);
+  
+
   return (
     <>
       <div
+        ref={cardContentRef}
         className={` ${
           share ? " max-md:bg-[#48556A]" : " bg-white "
         }  pt-4 px-8 pb-4 rounded-b-xl h-20`}

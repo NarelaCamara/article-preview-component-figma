@@ -18,21 +18,32 @@ export const Card = ({
   name: string;
   date: string;
 }) => {
-  const overlayRef = useRef(null);
+  const cardRef = useRef(null);
+  const cardContentRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    gsap.from(overlayRef.current, {
+    gsap.from(cardRef.current, {
       opacity: 0,
       y: -200,
       duration: 1,
       stagger: 0.3,
       ease: "power3.out",
     });
+
+    if (cardContentRef.current) {
+      gsap.from(cardContentRef.current.children, {
+        opacity: 0,
+        y: -200,
+        duration: 1,
+        stagger: 0.3,
+        ease: "power3.out",
+      });
+    }
   }, []);
 
   return (
     <div
-      ref={overlayRef}
+      ref={cardRef}
       className="card max-md:max-w-[327px] md:max-w-[608px]  lg:max-w-[730px]   flex flex-col md:flex-row bg-white rounded-xl "
     >
       <img
@@ -40,7 +51,7 @@ export const Card = ({
         className=" md:rounded-tl-xl md:rounded-bl-xl md:min-w-[229px] md:max-w-[283px] max-md:rounded-t-xl "
         alt="cover"
       />
-      <div className="flex flex-col ">
+      <div ref={cardContentRef} className="flex flex-col ">
         <div className="p-8 bg-white rounded-xl">
           <h1 className="text-xl text-[#48556A] pb-6 font-[Manrope]">
             {title}
