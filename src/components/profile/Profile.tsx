@@ -17,6 +17,7 @@ export const Profile = ({
 }) => {
   const cardContentRef = useRef<HTMLDivElement>(null);
   const [share, setShare] = useState(false);
+  const container = useRef(null);
 
   useGSAP(() => {
     if (cardContentRef.current) {
@@ -29,46 +30,85 @@ export const Profile = ({
       });
     }
   }, []);
-  
+
+  useGSAP(() => {
+    const q = gsap.utils.selector(container);
+    const profileShow = q('[data-id="profile"]');
+    const shareShow = q('[data-id="share"]');
+
+    if (share) {
+      gsap.to(shareShow, {
+        opacity: 1,
+        y: -20,
+        duration: 0.5,
+        stagger: 0.3,
+        ease: "power3.out",
+        backgroundColor: "#48556A",
+      });
+
+      gsap.to(profileShow, {
+        opacity: 0,
+        y: 20,
+        duration: 0.3,
+        ease: "power2.in",
+      });
+
+      gsap.to(cardContentRef.current, {
+        backgroundColor: "#48556A",
+      });
+    } else {
+      gsap.to(profileShow, {
+        opacity: 1,
+        y: -20,
+        duration: 0.5,
+        stagger: 0.3,
+        ease: "power3.out",
+        backgroundColor: "#fff",
+      });
+
+      gsap.to(shareShow, {
+        opacity: 0,
+        y: 20,
+        duration: 0.3,
+        ease: "power2.in",
+      });
+
+      gsap.to(cardContentRef.current, {
+        backgroundColor: "#fff",
+      });
+    }
+  }, [share]);
 
   return (
     <>
-      <div
-        ref={cardContentRef}
-        className={` ${
-          share ? " max-md:bg-[#48556A]" : " bg-white "
-        }  pt-4 px-8 pb-4 rounded-b-xl h-20`}
-      >
-        <div className="grid grid-cols-5 grid-rows-1 gap-2 place-items-center md:place-items-start">
+      <div ref={cardContentRef} className={` pt-4 px-8 pb-4 rounded-b-xl h-20`}>
+        <div
+          ref={container}
+          className="grid grid-cols-5 grid-rows-1 gap-2 place-items-center md:place-items-start"
+        >
           <>
-            <div className={`${!share ? " block" : " max-md:hidden "}`}>
-              <img
-                src={profileImage}
-                className="rounded-full w-12 "
-                alt="user profile"
-              />
-            </div>
+            <img
+              data-id="profile"
+              src={profileImage}
+              className="rounded-full w-12"
+              alt="user profile"
+            />
 
-            <div
-              className={`col-span-3 ${!share ? " block" : " max-md:hidden "}`}
-            >
-              <h4 className="text-sm text-[#48556A] font-[Manrope]">{name}</h4>
-              <p className="text-xs text-[#9DAEC2] font-[Manrope]">{date}</p>
+            <div data-id="profile" className={`col-span-3 `}>
+              <h4 className="text-sm  text-[#48556A] font-[Manrope]">{name}</h4>
+              <p className="text-xs  text-[#9DAEC2] font-[Manrope]">{date}</p>
             </div>
           </>
 
           <>
             <h4
-              className={`hidden ${
-                share ? " max-md:block" : "  "
-              } text-[#9DAEC2] text-sm font-[Manrope]`}
+              data-id="share"
+              className={`text-[#9DAEC2] text-sm font-[Manrope]`}
             >
               SHARE
             </h4>
 
-            <div
-              className={`col-span-3 hidden  ${share ? " max-md:block" : " "}`}
-            >
+            <div data-id="share" className={`col-span-3 `}>
               <button className="rounded-full ml-4  h-8">
                 <img src={facebook} className="w-5 h-5" alt="facebook" />
               </button>
@@ -87,7 +127,7 @@ export const Profile = ({
             </div>
 
             <button
-              className={` ${
+              className={`${
                 share ? "bg-[#6E8098]" : "bg-white "
               }  rounded-full  h-8 w-8 flex flex-row justify-center items-center`}
               onClick={() => setShare(!share)}
