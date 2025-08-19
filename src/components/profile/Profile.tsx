@@ -19,13 +19,15 @@ export const Profile = ({
   const [share, setShare] = useState(false);
   const container = useRef(null);
 
+  const mm = gsap.matchMedia();
+
   useGSAP(() => {
     if (cardContentRef.current) {
       gsap.from(cardContentRef.current.children, {
         opacity: 0,
         y: -200,
         duration: 1,
-        stagger: 0.3,
+
         ease: "power3.out",
       });
     }
@@ -36,51 +38,50 @@ export const Profile = ({
     const profileShow = q('[data-id="profile"]');
     const shareShow = q('[data-id="share"]');
 
-    if (share) {
-      gsap.to(shareShow, {
-        opacity: 1,
-        display: "block",
+    /* 640px */
+    mm.add("(max-width: 768px)", () => {
+      if (share) {
+        gsap.to(shareShow, {
+          opacity: 1,
+          display: "block",
+          duration: 0.4,
 
-        duration: 0.4,
-        stagger: 0.3,
-        ease: "power3.out",
-      });
+          ease: "power3.out",
+        });
 
-      gsap.to(profileShow, {
-        opacity: 0,
-        display: "none",
+        gsap.to(profileShow, {
+          opacity: 0,
+          display: "none",
+          duration: 0.2,
+          ease: "power2.in",
+        });
 
-        duration: 0.4,
-        ease: "power2.in",
-      });
+        gsap.to(cardContentRef.current, {
+          backgroundColor: "#48556A",
+          duration: 0.4,
+        });
+      } else {
+        gsap.to(profileShow, {
+          opacity: 1,
+          display: "block",
+          duration: 0.4,
 
-      gsap.to(cardContentRef.current, {
-        backgroundColor: "#48556A",
-        duration: 0.4,
-      });
-    } else {
-      gsap.to(profileShow, {
-        opacity: 1,
-        display: "block",
+          ease: "power3.out",
+        });
 
-        duration: 0.4,
-        stagger: 0.3,
-        ease: "power3.out",
-      });
+        gsap.to(shareShow, {
+          opacity: 0,
+          display: "none",
+          duration: 0.2,
+          ease: "power2.in",
+        });
 
-      gsap.to(shareShow, {
-        opacity: 0,
-        display: "none",
-
-        duration: 0.4,
-        ease: "power2.in",
-      });
-
-      gsap.to(cardContentRef.current, {
-        backgroundColor: "#fff",
-        duration: 0.4,
-      });
-    }
+        gsap.to(cardContentRef.current, {
+          backgroundColor: "#fff",
+          duration: 0.4,
+        });
+      }
+    });
   }, [share]);
 
   return (
@@ -90,7 +91,7 @@ export const Profile = ({
           ref={container}
           className="grid grid-cols-5 grid-rows-1 gap-2 place-items-center md:place-items-start"
         >
-          <div>
+          <div className="w-full">
             <img
               data-id="profile"
               src={profileImage}
@@ -99,13 +100,13 @@ export const Profile = ({
             />
             <h4
               data-id="share"
-              className={`text-[#9DAEC2] text-sm font-[Manrope]`}
+              className={`text-[#9DAEC2] text-sm font-[Manrope] md:hidden`}
             >
               SHARE
             </h4>
           </div>
 
-          <div className={`col-span-3  `}>
+          <div className={`col-span-3 w-full `}>
             <h4
               data-id="profile"
               className="text-sm  text-[#48556A] font-[Manrope]"
@@ -123,13 +124,13 @@ export const Profile = ({
               className="flex flex-row items-center justify-center"
               data-id="share"
             >
-              <button className="rounded-full ml-4  h-8">
+              <button className=" md:hidden rounded-full ml-4  h-8">
                 <img src={facebook} className="w-5 h-5" alt="facebook" />
               </button>
-              <button className="rounded-full ml-4  h-8">
+              <button className=" md:hidden rounded-full ml-4  h-8">
                 <img src={twitter} className="w-5 h-5" alt="twiter" />
               </button>
-              <button className="rounded-full ml-4  h-8">
+              <button className=" md:hidden rounded-full ml-4  h-8">
                 <img src={pinterest} className="w-5 h-5" alt="pinterest" />
               </button>
             </div>
