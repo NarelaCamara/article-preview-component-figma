@@ -6,20 +6,31 @@ import { useRef } from "react";
 import gsap from "gsap";
 
 export const Tooltip = ({ share }: { share: boolean }) => {
+  console.log("share", share);
   const tooltip = useRef(null);
 
   useGSAP(() => {
-    gsap.from(tooltip.current, {
-      opacity: 1,
-      y: -20,
-      duration: 1,
-      stagger: 0.3,
-      ease: "power3.out",
-    });
+    if (share) {
+      gsap.to(tooltip.current, {
+        opacity: 1,
+        y: -20,
+        duration: 0.5,
+        stagger: 0.3,
+        ease: "power3.out",
+      });
+    } else {
+      gsap.to(tooltip.current, {
+        opacity: 0,
+        y: 20,
+
+        duration: 0.3,
+        ease: "power2.in",
+      });
+    }
   }, [share]);
 
   return (
-    <div ref={tooltip} className={`hidden ${share ? " md:block " : "  "}`}>
+    <div ref={tooltip} className={` max-md:hidden `}>
       <div
         className={`px-[38px] py-[16px]  bg-[#48556A] rounded-xl min-w-[248px]`}
       >
