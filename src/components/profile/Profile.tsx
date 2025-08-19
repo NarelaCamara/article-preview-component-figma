@@ -39,8 +39,9 @@ export const Profile = ({
     if (share) {
       gsap.to(shareShow, {
         opacity: 1,
+        display: "block",
         y: -20,
-        duration: 0.5,
+        duration: 0.3,
         stagger: 0.3,
         ease: "power3.out",
         backgroundColor: "#48556A",
@@ -48,8 +49,9 @@ export const Profile = ({
 
       gsap.to(profileShow, {
         opacity: 0,
+        display: "none",
         y: 20,
-        duration: 0.3,
+        duration: 0.4,
         ease: "power2.in",
       });
 
@@ -59,8 +61,9 @@ export const Profile = ({
     } else {
       gsap.to(profileShow, {
         opacity: 1,
+        display: "block",
         y: -20,
-        duration: 0.5,
+        duration: 0.3,
         stagger: 0.3,
         ease: "power3.out",
         backgroundColor: "#fff",
@@ -68,8 +71,9 @@ export const Profile = ({
 
       gsap.to(shareShow, {
         opacity: 0,
+        display: "none",
         y: 20,
-        duration: 0.3,
+        duration: 0.4,
         ease: "power2.in",
       });
 
@@ -86,43 +90,41 @@ export const Profile = ({
           ref={container}
           className="grid grid-cols-5 grid-rows-1 gap-2 place-items-center md:place-items-start"
         >
-          <>
+          <div>
             <img
               data-id="profile"
               src={profileImage}
               className="rounded-full w-12"
               alt="user profile"
             />
-
-            <div data-id="profile" className={`col-span-3 `}>
-              <h4 className="text-sm  text-[#48556A] font-[Manrope]">{name}</h4>
-              <p className="text-xs  text-[#9DAEC2] font-[Manrope]">{date}</p>
-            </div>
-          </>
-
-          <>
             <h4
               data-id="share"
               className={`text-[#9DAEC2] text-sm font-[Manrope]`}
             >
               SHARE
             </h4>
+          </div>
 
-            <div data-id="share" className={`col-span-3 `}>
-              <button className="rounded-full ml-4  h-8">
-                <img src={facebook} className="w-5 h-5" alt="facebook" />
-              </button>
-              <button className="rounded-full ml-4  h-8">
-                <img src={twitter} className="w-5 h-5" alt="twiter" />
-              </button>
-              <button className="rounded-full ml-4  h-8">
-                <img src={pinterest} className="w-5 h-5" alt="pinterest" />
-              </button>
+          <div className={`col-span-3 `}>
+            <div data-id="profile">
+              <h4 className="text-sm  text-[#48556A] font-[Manrope]">{name}</h4>
+              <p className="text-xs  text-[#9DAEC2] font-[Manrope]">{date}</p>
+
+              <div data-id="share">
+                <button className="rounded-full ml-4  h-8">
+                  <img src={facebook} className="w-5 h-5" alt="facebook" />
+                </button>
+                <button className="rounded-full ml-4  h-8">
+                  <img src={twitter} className="w-5 h-5" alt="twiter" />
+                </button>
+                <button className="rounded-full ml-4  h-8">
+                  <img src={pinterest} className="w-5 h-5" alt="pinterest" />
+                </button>
+              </div>
             </div>
-          </>
-
-          <div className="col-start-5 relative">
-            <div className="absolute z-50 -top-22 -left-20 ">
+          </div>
+          <div className="col-start-5 relative ">
+            <div className="absolute z-50 -top-22 -left-20 max-sm:hidden ">
               <Tooltip share={share} />
             </div>
 
