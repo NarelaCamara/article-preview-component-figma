@@ -1,4 +1,7 @@
+import gsap from "gsap";
 import { Profile } from "../profile/Profile";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 
 export const Card = ({
   cover,
@@ -15,8 +18,23 @@ export const Card = ({
   name: string;
   date: string;
 }) => {
+  const overlayRef = useRef(null);
+
+  useGSAP(() => {
+    gsap.from(overlayRef.current, {
+      opacity: 0,
+      y: -200,
+      duration: 1,
+      stagger: 0.3,
+      ease: "power3.out",
+    });
+  }, []);
+
   return (
-    <div className="max-md:max-w-[327px] md:max-w-[608px]  lg:max-w-[730px]   flex flex-col md:flex-row bg-white rounded-xl ">
+    <div
+      ref={overlayRef}
+      className="card max-md:max-w-[327px] md:max-w-[608px]  lg:max-w-[730px]   flex flex-col md:flex-row bg-white rounded-xl "
+    >
       <img
         src={cover}
         className=" md:rounded-tl-xl md:rounded-bl-xl md:min-w-[229px] md:max-w-[283px] max-md:rounded-t-xl "
