@@ -115,13 +115,13 @@ export const Profile = ({
               className="flex flex-row items-center justify-center"
               data-id="share"
             >
-              <button className=" lg:hidden rounded-full ml-4  h-8">
+              <button data-testid="share-facebook-button" aria-label="share-facebook" className=" lg:hidden rounded-full ml-4  h-8">
                 <img src={facebook} className="w-5 h-5" alt="facebook" />
               </button>
-              <button className=" lg:hidden rounded-full ml-4  h-8">
+              <button data-testid="share-twitter-button" aria-label="share-twitter" className=" lg:hidden rounded-full ml-4  h-8">
                 <img src={twitter} className="w-5 h-5" alt="twiter" />
               </button>
-              <button className=" lg:hidden rounded-full ml-4  h-8">
+              <button data-testid="share-pinterest-button" aria-label="share-pinterest" className=" lg:hidden rounded-full ml-4  h-8">
                 <img src={pinterest} className="w-5 h-5" alt="pinterest" />
               </button>
             </div>
@@ -133,6 +133,8 @@ export const Profile = ({
             </div>
 
             <button
+              aria-label="share-button"
+              data-testid="share-button"
               className={`${
                 share ? "bg-[#6E8098]" : "bg-white "
               }  rounded-full  h-8 w-8 flex flex-row justify-center items-center`}
