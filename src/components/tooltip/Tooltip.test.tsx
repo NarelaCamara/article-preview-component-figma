@@ -34,6 +34,6 @@ describe("Tooltip", () => {
   it("renders nothing when share is false", () => {
     render(<Tooltip share={false} />);
 
-    expect(screen.queryByText("SHARE")).toBeInTheDocument();
+    expect(screen.queryByText("SHARE")).not.toBeInTheDocument();
   });
 });

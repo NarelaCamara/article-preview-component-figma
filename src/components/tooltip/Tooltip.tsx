@@ -28,13 +28,20 @@ export const Tooltip = ({ share }: { share: boolean }) => {
     }
   }, [share]);
 
+  if (!share) return null;
+
   return (
     <div ref={tooltip} className={` max-lg:hidden opacity-0 `}>
       <div
         className={`px-[38px] py-[16px]  bg-[#48556A] rounded-xl min-w-[248px]`}
       >
         <div className="grid grid-cols-4 grid-rows-1 gap-1  place-items-center ">
-          <h4 className={`text-[#9DAEC2] text-sm font-[Manrope]`}>SHARE</h4>
+          <h4
+            className={`text-[#9DAEC2] text-sm font-[Manrope]`}
+            data-testid="tooltip-share-text"
+          >
+            SHARE
+          </h4>
           <div className="col-span-3">
             <button className="rounded-full ml-4  h-8">
               <img src={facebook} className="w-5 h-5" alt="facebook" />
