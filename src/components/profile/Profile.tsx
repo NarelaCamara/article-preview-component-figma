@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import facebook from "../../assets/icon-facebook.svg";
 import pinterest from "../../assets/icon-pinterest.svg";
 import twitter from "../../assets/icon-twitter.svg";
@@ -18,49 +18,51 @@ export const Profile = ({
   const cardContentRef = useRef<HTMLDivElement>(null);
   const [share, setShare] = useState(false);
   const container = useRef(null);
-  const mm = gsap.matchMedia();
 
-  mm.add(
-    {
-      isMobile: "(max-width: 768px)",
-      isDesktop: "(min-width: 769px)",
-    },
-    (context) => {
-      const { isMobile } = context.conditions || {};
+  // MatchMedia + share reactivo
+  useEffect(() => {
+    const mm = gsap.matchMedia();
 
-      const q = gsap.utils.selector(container);
-      const profileShow = q('[data-id="profile"]');
-      const shareShow = q('[data-id="share"]');
+    mm.add(
+      {
+        isMobile: "(max-width: 1024px)",
+        isDesktop: "(min-width: 1025px)",
+      },
+      (context) => {
+        const { isMobile } = context.conditions || {};
 
-      if (isMobile) {
-        gsap.to(shareShow, {
-          opacity: share ? 1 : 0,
-          duration: 0.2,
-          ease: share ? "power3.out" : "power2.in",
-          position: "relative",
-          top: -24,
-        });
+        const q = gsap.utils.selector(container);
+        const profileShow = q('[data-id="profile"]');
+        const shareShow = q('[data-id="share"]');
 
-        gsap.to(profileShow, {
-          opacity: share ? 0 : 1,
-          duration: 0.2,
-          ease: share ? "power2.in" : "power3.out",
-        });
+        if (isMobile) {
+          gsap.to(shareShow, {
+            opacity: share ? 1 : 0,
+            duration: 0.2,
+            ease: share ? "power3.out" : "power2.in",
+            position: "relative",
+            top: -24,
+          });
 
-        gsap.to(cardContentRef.current, {
-          backgroundColor: share ? "#48556A" : "#fff",
-          duration: 0.2,
-        });
-      } else {
-        {
+          gsap.to(profileShow, {
+            opacity: share ? 0 : 1,
+            duration: 0.2,
+            ease: share ? "power2.in" : "power3.out",
+          });
+
+          gsap.to(cardContentRef.current, {
+            backgroundColor: share ? "#48556A" : "#fff",
+            duration: 0.2,
+          });
+        } else {
           // Reseteamos todo en desktop
           gsap.set(profileShow, { clearProps: "all" });
           gsap.set(shareShow, { clearProps: "all" });
           gsap.set(cardContentRef.current, { clearProps: "all" });
         }
-      }
-    }
-  );
+      },
+    );
+  }, [share]);
 
   useGSAP(() => {
     if (cardContentRef.current) {
@@ -89,7 +91,7 @@ export const Profile = ({
             />
             <h4
               data-id="share"
-              className={`text-[#9DAEC2] text-sm font-[Manrope] md:hidden`}
+              className={`text-[#9DAEC2] text-sm font-[Manrope] lg:hidden`}
             >
               SHARE
             </h4>
@@ -113,13 +115,13 @@ export const Profile = ({
               className="flex flex-row items-center justify-center"
               data-id="share"
             >
-              <button className=" md:hidden rounded-full ml-4  h-8">
+              <button className=" lg:hidden rounded-full ml-4  h-8">
                 <img src={facebook} className="w-5 h-5" alt="facebook" />
               </button>
-              <button className=" md:hidden rounded-full ml-4  h-8">
+              <button className=" lg:hidden rounded-full ml-4  h-8">
                 <img src={twitter} className="w-5 h-5" alt="twiter" />
               </button>
-              <button className=" md:hidden rounded-full ml-4  h-8">
+              <button className=" lg:hidden rounded-full ml-4  h-8">
                 <img src={pinterest} className="w-5 h-5" alt="pinterest" />
               </button>
             </div>

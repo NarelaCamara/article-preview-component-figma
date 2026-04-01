@@ -29,7 +29,7 @@ export const Tooltip = ({ share }: { share: boolean }) => {
   }, [share]);
 
   return (
-    <div ref={tooltip} className={` max-md:hidden `}>
+    <div ref={tooltip} className={` max-lg:hidden `}>
       <div
         className={`px-[38px] py-[16px]  bg-[#48556A] rounded-xl min-w-[248px]`}
       >
